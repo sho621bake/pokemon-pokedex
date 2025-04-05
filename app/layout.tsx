@@ -4,26 +4,26 @@ import './app.css';
 
 export default function Layout() {
   const { theme, toggleTheme } = useTheme();
-  
+
   return (
     <div className='min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 dark:text-gray-100'>
       <header className='sticky top-0 z-10 backdrop-blur-md bg-white/70 dark:bg-gray-900/70 border-b border-gray-200 dark:border-gray-700'>
-        <div className='container mx-auto px-4 py-3 flex justify-between items-center'>
-          <a href='/' className='flex items-center gap-2 transition-transform hover:scale-105'>
-            <div className='bg-red-600 w-10 h-10 rounded-full flex items-center justify-center shadow-lg'>
-              <div className='w-5 h-5 bg-white rounded-full border-2 border-gray-800'></div>
+        <div className='container mx-auto px-2 sm:px-4 py-3 flex justify-between items-center'>
+          <a href='/' className='flex items-center gap-1 sm:gap-2 transition-transform hover:scale-105'>
+            <div className='bg-red-600 w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shadow-lg flex-shrink-0'>
+              <div className='w-4 h-4 sm:w-5 sm:h-5 bg-white rounded-full border-2 border-gray-800'></div>
             </div>
-            <h1 className='text-2xl font-bold bg-gradient-to-r from-red-600 to-red-400 bg-clip-text text-transparent'>
+            <h1 className='text-base sm:text-xl md:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-red-600 to-red-400 bg-clip-text text-transparent whitespace-nowrap'>
               ポケモン図鑑
             </h1>
           </a>
 
           <nav>
-            <ul className='flex gap-4'>
+            <ul className='flex gap-1 sm:gap-4'>
               <li>
                 <a
                   href='/'
-                  className='px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
+                  className='px-2 sm:px-3 py-1 sm:py-2 text-sm sm:text-base rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors whitespace-nowrap'
                 >
                   ホーム
                 </a>
@@ -31,7 +31,7 @@ export default function Layout() {
               <li>
                 <a
                   href='/types'
-                  className='px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors'
+                  className='px-2 sm:px-3 py-1 sm:py-2 text-sm sm:text-base rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors whitespace-nowrap'
                 >
                   タイプ別
                 </a>
