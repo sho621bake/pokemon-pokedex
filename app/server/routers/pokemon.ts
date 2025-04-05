@@ -82,6 +82,8 @@ export const pokemonRouter = router({
           sprites: {
             front: details.sprites.front_default,
             back: details.sprites.back_default,
+            frontShiny: details.sprites.front_shiny || '',
+            backShiny: details.sprites.back_shiny || '',
             officialArtwork: details.sprites.other['official-artwork'].front_default,
           },
           species: {

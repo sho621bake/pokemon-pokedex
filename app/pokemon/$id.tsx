@@ -114,7 +114,8 @@ export default function PokemonDetailPage() {
       case 'back':
         return data.sprites.back;
       case 'shiny':
-        return ''; // Shiny sprites not available in the optimized structure
+        // 色違い画像が存在しない場合は通常の画像を表示
+        return data.sprites.frontShiny || data.sprites.front;
       default:
         return data.sprites.officialArtwork;
     }
@@ -216,11 +217,16 @@ export default function PokemonDetailPage() {
         <div
           className={`rounded-xl overflow-hidden bg-white dark:bg-gray-800 shadow-lg border ${typeStyle.border} p-4`}
         >
-          <div className='flex justify-center items-center h-64 mb-4'>
+          <div className='flex justify-center items-center h-64 mb-4 relative'>
             <img
               src={getSelectedImage()}
               alt={data.name}
-              className='max-h-full max-w-full object-contain transition-all duration-300 hover:scale-110 drop-shadow-md'
+              className={`max-h-full max-w-full object-contain transition-all duration-300 hover:scale-110 drop-shadow-md ${
+                imageView !== 'official' ? 'scale-[2.5] pixelated' : ''
+              }`}
+              style={{
+                imageRendering: imageView !== 'official' ? 'pixelated' : 'auto',
+              }}
             />
           </div>
 
@@ -401,6 +407,14 @@ export default function PokemonDetailPage() {
               )}
 
               {!evolutionChainQuery.isLoading &&
+                !evolutionChainQuery.data &&
+                !evolutionChainQuery.error && (
+                  <div className='text-center py-4'>
+                    <p className='text-gray-600 dark:text-gray-400'>進化チェーン情報がありません</p>
+                  </div>
+                )}
+
+              {!evolutionChainQuery.isLoading &&
                 !evolutionChainQuery.error &&
                 evolutionChainQuery.data && (
                   <div className='flex flex-col items-center'>
@@ -410,15 +424,15 @@ export default function PokemonDetailPage() {
                       </div>
                     ) : (
                       <div className='w-full'>
-                        <div className='flex flex-wrap justify-center gap-4'>
+                        <div className='flex flex-col sm:flex-row flex-wrap justify-center items-center gap-2 sm:gap-4'>
                           {evolutionChainQuery.data.chain.map((pokemon, index) => (
                             <React.Fragment key={pokemon.id}>
                               {/* 進化の矢印 */}
                               {index > 0 && (
-                                <div className='flex flex-col items-center justify-center px-2'>
+                                <div className='flex flex-row sm:flex-col items-center justify-center py-2 sm:py-0 px-0 sm:px-2 w-full sm:w-auto'>
                                   <svg
                                     xmlns='http://www.w3.org/2000/svg'
-                                    className='h-8 w-8 text-gray-400'
+                                    className='h-6 w-6 sm:h-8 sm:w-8 text-gray-400 transform rotate-90 sm:rotate-0'
                                     fill='none'
                                     viewBox='0 0 24 24'
                                     stroke='currentColor'
@@ -431,7 +445,7 @@ export default function PokemonDetailPage() {
                                     />
                                   </svg>
                                   {pokemon.evolutionDetails && (
-                                    <span className='text-xs text-gray-500 text-center max-w-[120px] mt-1'>
+                                    <span className='text-xs sm:text-sm text-gray-500 text-center ml-2 sm:ml-0 sm:mt-1 max-w-full sm:max-w-[120px]'>
                                       {getEvolutionCondition(pokemon.evolutionDetails)}
                                     </span>
                                   )}
@@ -441,13 +455,13 @@ export default function PokemonDetailPage() {
                               {/* ポケモンカード */}
                               <Link
                                 to={`/pokemon/${pokemon.id}`}
-                                className={`flex flex-col items-center p-4 rounded-lg border ${
+                                className={`flex flex-col items-center p-3 sm:p-4 rounded-lg border ${
                                   pokemon.id === data.id
                                     ? `${typeStyle.border} ${typeStyle.bg} bg-opacity-30`
                                     : 'border-gray-200 dark:border-gray-700 hover:border-red-200 hover:bg-red-50 dark:hover:border-red-900 dark:hover:bg-red-950/20'
-                                } transition-all duration-200`}
+                                } transition-all duration-200 min-w-[120px]`}
                               >
-                                <div className='w-20 h-20 flex items-center justify-center'>
+                                <div className='w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center'>
                                   <img
                                     src={pokemon.image}
                                     alt={pokemon.name}
@@ -466,14 +480,6 @@ export default function PokemonDetailPage() {
                         </div>
                       </div>
                     )}
-                  </div>
-                )}
-
-              {!evolutionChainQuery.isLoading &&
-                !evolutionChainQuery.data &&
-                !evolutionChainQuery.error && (
-                  <div className='text-center py-4'>
-                    <p className='text-gray-600 dark:text-gray-400'>進化チェーン情報がありません</p>
                   </div>
                 )}
             </div>
@@ -499,7 +505,7 @@ export default function PokemonDetailPage() {
                   strokeLinecap='round'
                   strokeLinejoin='round'
                   strokeWidth={2}
-                  d='M15 19l-7-7 7-7m-7 7h18'
+                  d='M15 19l-7-7 7-7'
                 ></path>
               </svg>
               <div className='text-left'>

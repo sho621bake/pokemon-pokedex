@@ -95,6 +95,8 @@ export interface OptimizedPokemonDetail {
   sprites: {
     front: string;
     back: string;
+    frontShiny: string;
+    backShiny: string;
     officialArtwork: string;
   };
   species: {
