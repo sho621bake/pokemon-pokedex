@@ -1,87 +1,108 @@
-# Welcome to React Router!
+# Pokémon Pokédex
 
-A modern, production-ready template for building full-stack React applications using React Router.
+モダンな React と TypeScript で構築されたポケモン図鑑アプリケーション。
+学習目的で開発したもので商用目的ではありません。
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+## 技術スタック
 
-## Features
+- ⚛️ React 19
+- 🛣️ React Router v7.4 (サーバーサイドレンダリング)
+- 🎨 Tailwind CSS v4.0.0
+- 🔄 tRPC v11.0.0
+- 📊 React Query
+- 🔒 TypeScript
+- 🧩 shadcn/ui コンポーネント
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+## 機能
 
-## Getting Started
+- 🔍 ポケモン検索機能
+- 📱 レスポンシブデザイン
+- 📊 ポケモンの詳細情報表示
+  - 基本情報（タイプ、高さ、重さなど）
+  - 能力値
+  - 特性
+  - 進化チェーン
+- 🇯🇵 日本語対応
 
-### Installation
+## 開発環境のセットアップ
 
-Install the dependencies:
+### 必要条件
+
+- Node.js 18 以上
+- npm または bun
+
+### インストール
+
+依存関係をインストールします：
 
 ```bash
+# npmを使用する場合
 npm install
+
+# bunを使用する場合
+bun install
 ```
 
-### Development
+### 開発サーバーの起動
 
-Start the development server with HMR:
+ホットリロード付きの開発サーバーを起動します：
 
 ```bash
 npm run dev
+# または
+bun run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+アプリケーションは `http://localhost:5173` で利用可能になります。
 
-## Building for Production
+## 本番用ビルド
 
-Create a production build:
+本番用ビルドを作成します：
 
 ```bash
 npm run build
+# または
+bun run build
 ```
 
-## Deployment
+## 本番環境での実行
 
-### Docker Deployment
-
-To build and run using Docker:
+ビルドしたアプリケーションを実行します：
 
 ```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
+npm run start
+# または
+bun run start
 ```
 
-The containerized application can be deployed to any platform that supports Docker, including:
+## Docker での実行
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
+Docker を使用してアプリケーションをビルドして実行することもできます：
 
-### DIY Deployment
+```bash
+# イメージのビルド
+docker build -t pokemon-pokedex .
 
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
+# コンテナの実行
+docker run -p 3000:3000 pokemon-pokedex
 ```
 
-## Styling
+## プロジェクト構造
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+```
+pokemon-pokedex/
+├── app/                  # アプリケーションのメインコード
+│   ├── api/              # APIとデータフェッチング
+│   ├── components/       # 再利用可能なUIコンポーネント
+│   ├── lib/              # ユーティリティ関数
+│   ├── pokemon/          # ポケモン関連のページ
+│   ├── server/           # サーバーサイドコード（tRPC）
+│   ├── layout.tsx        # メインレイアウト
+│   ├── page.tsx          # ホームページ
+│   └── routes.ts         # ルート定義
+├── public/               # 静的ファイル
+├── tailwind.config.js    # Tailwind CSS設定
+└── react-router.config.ts # React Router設定
+```
 
 ---
-
-Built with ❤️ using React Router.
